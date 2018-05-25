@@ -1,5 +1,5 @@
 
-
+$(document).ready(function(){
     var QandAArr = [
 
         {question: "What is the world's most expensive spice by weight?",
@@ -89,8 +89,15 @@
         "Singing Fish",
         "Sardeen"
         ],
-        image: "<img src='assets/images/billybass'>"}
+        image: "<img src='assets/images/billybass.jpg'>"}
     ];
+
+
+    var timer = 10;
+    var intervalId;
+    var qnum = 0;
+    var correctanswers = 0;
+    var incorrectanswers = 0;
 
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -109,24 +116,32 @@
         }
       
         return array;
-      }
+    };
 
-  
-    var timer = 10;
-    var intervalId;
     function decrement(){
         timer--;
-        $("#timer").text(timer)
-        if (timer === 0){
-            newquestion()
-            clearInterval(intervalId)
-            timer = 10;
+        $("#timer").text(timer);
+        if (timer === 0){   
+            incorrectanswer();
         }
     };
 
-    var qnum = 0;
+
+    function emptyall(){
+        $("#question").empty()
+        $("#timer").empty()
+        $("button").hide()
+        $(".showanswer").empty()
+    }
+  
 
     function newquestion(){
+        emptyall()
+        if(qnum < 10){
+        $("button").show()
+        $(".restart").hide()
+        $(".start").hide()
+        console.log(qnum)
         intervalId = setInterval(decrement, 1000)
         
 
@@ -135,21 +150,73 @@
         var ar = ["a","b","c","d"]
         var newar = shuffle(ar)
 
-        $("#" + newar[0]).text(QandAArr[qnum].correct_answer)
-        $("#" + newar[1]).text(QandAArr[qnum].incorrect_answers[0])
-        $("#" + newar[2]).text(QandAArr[qnum].incorrect_answers[1])
-        $("#" + newar[3]).text(QandAArr[qnum].incorrect_answers[2])
+        $("#" + newar[0]).text(QandAArr[qnum].correct_answer).attr("class", "correct")
+        $("#" + newar[1]).text(QandAArr[qnum].incorrect_answers[0]).attr("class", "incorrect")
+        $("#" + newar[2]).text(QandAArr[qnum].incorrect_answers[1]).attr("class", "incorrect")
+        $("#" + newar[3]).text(QandAArr[qnum].incorrect_answers[2]).attr("class", "incorrect")
+    
+        }
 
-       
-
-        qnum++;
-
+        else{
+            endgame();
+            
+        }
     };
+
+    function endgame(){
+        clearInterval(intervalId)
+        emptyall()
+        $(".showanswer").html("Correct Answers: " + correctanswers + "<br>")
+        $(".showanswer").append("Incorrect Answers: " + incorrectanswers)
+        $(".restart").show()
+        
+
+    }
+
+    function incorrectanswer(){
+        clearInterval(intervalId)
+        timer = 10;
+        emptyall();
+        $(".showanswer").html("Wrong Answer. Here's a hint:")
+        $(".showanswer").append(QandAArr[qnum].image)
+        incorrectanswers++;
+        qnum++;
+        setTimeout(newquestion, 3000)
+     };
+
+     function correctanswer (){
+        clearInterval(intervalId)
+        timer = 10;
+        emptyall()
+        $(".showanswer").html("Correct Answer")
+        $(".showanswer").append(QandAArr[qnum].image)
+        correctanswers++;
+        qnum++
+        setTimeout(newquestion, 3000)
+     }
+
+    function startGame(){
+        qnum = 0;
+        timer = 10;
+        correctanswers = 0;
+        incorrectanswers = 0;
+        $(".restart").hide()
+        newquestion();
+    }; 
 
     
 
+    $(document).on("click",".correct", correctanswer)
+    $(document).on("click",".incorrect", incorrectanswer)
+    $(document).on("click",".restart", startGame)
+    
+    $(document).on("click",".start", startGame)
+    
+    $(".restart").hide()
+    $(".answers").hide()
+    
 
-   newquestion() 
+    
+     
    
-    function startGame(){
-    };
+});    
