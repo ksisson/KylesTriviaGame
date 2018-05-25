@@ -177,7 +177,7 @@ $(document).ready(function(){
         clearInterval(intervalId)
         timer = 10;
         emptyall();
-        $(".showanswer").html("Wrong Answer. Here's a hint:")
+        $(".showanswer").html("Wrong Answer. Here's a hint:     ")
         $(".showanswer").append(QandAArr[qnum].image)
         incorrectanswers++;
         qnum++;
@@ -188,7 +188,7 @@ $(document).ready(function(){
         clearInterval(intervalId)
         timer = 10;
         emptyall()
-        $(".showanswer").html("Correct Answer")
+        $(".showanswer").html("Correct Answer:     ")
         $(".showanswer").append(QandAArr[qnum].image)
         correctanswers++;
         qnum++

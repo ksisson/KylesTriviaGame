@@ -1,9 +1,43 @@
 body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Times New Roman', Times, serif;
+    background: #3FD8C9;
 }
 h1{
     text-align: center;
-    background: #CC0050;
-    color: #00FFA0;
+    background: #F0675C;
+    color: #163143;
+    font-size: 60px;
     padding: 40px;
+    font-weight: bold;
+}
+button{
+    display: inline-block;
+    padding: 20px;
+
+}
+.start{
+    text-align: center;
+    margin: 0 auto;
+    width: 300px;
+
+}
+.maincontent{
+    text-align: center;
+    font-size: 30px;
+}
+img{
+    width: 400px;
+    height: 400px;
+}
+#question{
+    font-size:40px;
+    
+}
+#timer{
+    height: 100px;
+    font-size: 50px;
+    color: #D4273E;
+}
+button{
+    background: #D4D29A;
 }
